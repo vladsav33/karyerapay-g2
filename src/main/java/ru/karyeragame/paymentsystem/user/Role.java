@@ -1,7 +1,7 @@
 package ru.karyeragame.paymentsystem.user;
 
 public enum Role {
-    UNAPPROVED,
-    USER,
-    ADMIN;
+    ROLE_UNAPPROVED,
+    ROLE_USER,
+    ROLE_ADMIN;
 }

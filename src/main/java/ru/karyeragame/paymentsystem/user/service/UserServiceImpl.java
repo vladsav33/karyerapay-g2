@@ -18,6 +18,9 @@ import ru.karyeragame.paymentsystem.user.model.RegisterKey;
 import ru.karyeragame.paymentsystem.user.model.User;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -45,17 +48,17 @@ public class UserServiceImpl implements UserService {
                 .email(userDtoRegistration.getEmail())
                 .password(passwordEncoder.encode(userDtoRegistration.getPassword()))
                 .created(LocalDateTime.now())
-                .role(Role.UNAPPROVED)
+                .role(Role.ROLE_UNAPPROVED)
                 .status(Status.UNAPPROVED)
                 .profession(Profession.UNAPPROVED)
                 .build();
 
         String key = UUID.randomUUID().toString();
-//        Set<String> to = new HashSet<>(Collections.singleton(user.getEmail()));
+        Set<String> to = new HashSet<>(Collections.singleton(user.getEmail()));
 
-//        emailService.sendMail("career@career.ru", to, "Регистрация в Карьера",
-//                "Для завершения регистрации перейдите по ссылке " +
-//                        "http://localhost:8081/registration/confirmation?key=" + key + "?email=" + user.getEmail());
+        emailService.sendMail("почта проперти", to, "Регистрация в Карьера",
+                "Для завершения регистрации перейдите по ссылке " +
+                        "http://localhost:8081/karyeraSecurity/confirmation?key=" + key + "&email=" + user.getEmail());
 
         if (!userDao.saveUser(user)) {
             throw new SaveException("Не удалось сохранить user.");
@@ -74,8 +77,6 @@ public class UserServiceImpl implements UserService {
         if (!registerKeyDao.saveRegisterKey(registerKey)) {
             throw new SaveException("Не удалось сохранить registerKey.");
         }
-        // для проверки функциональности подтверждения регистрации вызываем метод
-        confirmationRegistration(key, user.getEmail());
 
         return "Проверьте электронную почту, перейдите по ссылке чтобы завершить регистрацию.";
     }
@@ -100,7 +101,7 @@ public class UserServiceImpl implements UserService {
 
         User user = userDao.findById(registerKey.getUserId());
 
-        user.setRole(Role.USER);
+        user.setRole(Role.ROLE_USER);
         user.setStatus(Status.READY);
         user.setProfession(Profession.WORKER);
 

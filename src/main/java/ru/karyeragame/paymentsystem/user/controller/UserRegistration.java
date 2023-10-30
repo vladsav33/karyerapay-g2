@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @RestController
-@RequestMapping("/karyerapay")
+@RequestMapping("/karyeraSecurity")
 @RequiredArgsConstructor
 
 public class UserRegistration {
