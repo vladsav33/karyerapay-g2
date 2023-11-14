@@ -1,6 +1,8 @@
 package ru.karyeragame.paymentsystem.user.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.karyeragame.paymentsystem.exceptions.ErrorPassword;
@@ -56,7 +58,7 @@ public class UserServiceImpl implements UserService {
         String key = UUID.randomUUID().toString();
         Set<String> to = new HashSet<>(Collections.singleton(user.getEmail()));
 
-        emailService.sendMail("почта проперти", to, "Регистрация в Карьера",
+        emailService.sendMail("career-game@mail.ru", to, "Регистрация в Карьера",
                 "Для завершения регистрации перейдите по ссылке " +
                         "http://localhost:8081/karyeraSecurity/confirmation?key=" + key + "&email=" + user.getEmail());
 
@@ -111,4 +113,12 @@ public class UserServiceImpl implements UserService {
         return "Успех, регистрация подтверждена.";
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDao.findUserByEmail(username);
+        if (user == null) {
+            throw new ExceptionNotFound("Пользователя нет в базе" + username);
+        }
+        return user;
+    }
 }

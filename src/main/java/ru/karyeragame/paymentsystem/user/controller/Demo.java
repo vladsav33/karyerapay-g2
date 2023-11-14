@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.karyeragame.paymentsystem.user.model.User;
-import ru.karyeragame.paymentsystem.user.service.CustomUserService;
+import ru.karyeragame.paymentsystem.user.service.UserService;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Map;
@@ -21,9 +21,8 @@ import java.util.Map;
 @RequestMapping("/karyerapay")
 @AllArgsConstructor
 public class Demo {
-    private final CustomUserService userDetailsService;
+    private final UserService userService;
 
-    // интересная конструкция получить данные пользователя из AuthenticationPrincipal, не обращаясь в базу повторно
     @GetMapping
     @RequestMapping("/paymentsystem/demo")
     public ResponseEntity<Map<String, String>> demo(@AuthenticationPrincipal UserDetails userDetails) {
@@ -33,12 +32,11 @@ public class Demo {
                         .formatted(userDetails.getUsername())));
     }
 
-    // доступен всем авторизовавшимся. пока не реализованно установления роли admin, и нет условия в фильтре
     @GetMapping
     @RequestMapping("/admin/findUser/{email}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<User> getUser(@NotBlank @PathVariable String email) {
-        return ResponseEntity.ok((User) userDetailsService.loadUserByUsername(email));
+        return ResponseEntity.ok((User) userService.loadUserByUsername(email));
     }
 
 }

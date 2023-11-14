@@ -30,4 +30,11 @@ public class UserRegistration {
                                    @NotBlank @RequestParam(name = "email") String email) {
         return userService.confirmationRegistration(key, email);
     }
+
+    @GetMapping
+    @RequestMapping("/permit")
+    @ResponseStatus(HttpStatus.OK)
+    public String permitAll() {
+        return "доступен всем";
+    }
 }

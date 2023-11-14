@@ -14,14 +14,21 @@ import java.util.Map;
 @RestControllerAdvice
 @Slf4j
 public class ErrorHandler {
-    @ExceptionHandler({InvalidEmail.class, MethodArgumentNotValidException.class,
+    @ExceptionHandler({InvalidEmail.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleUnknownStateException(final InvalidEmail exception) {
+        log.warn(exception.getMessage());
+        return Map.of("error", "Письмо не может быть отправлено");
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class,
             ConstraintViolationException.class,
             ErrorPassword.class,
             MethodArgumentTypeMismatchException.class,
             UserAlreadyExistException.class
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleUnknownStateException(final InvalidEmail exception) {
+    public Map<String, String> handleBadRequestException(Throwable exception) {
         log.warn(exception.getMessage());
         return Map.of("error", exception.getMessage());
     }
