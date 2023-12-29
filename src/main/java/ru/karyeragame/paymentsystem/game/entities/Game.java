@@ -1,4 +1,4 @@
-package ru.karyeragame.paymentsystem.entities;
+package ru.karyeragame.paymentsystem.game.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
-import ru.karyeragame.paymentsystem.mock.User;
+import ru.karyeragame.paymentsystem.user.User;
 
 import java.time.LocalDateTime;
 
