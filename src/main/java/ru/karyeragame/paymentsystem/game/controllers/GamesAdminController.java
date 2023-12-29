@@ -1,18 +1,19 @@
-package ru.karyeragame.paymentsystem.controllers;
+package ru.karyeragame.paymentsystem.game.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.karyeragame.paymentsystem.dto.GameCreateDto;
-import ru.karyeragame.paymentsystem.dto.GameOutputDto;
-import ru.karyeragame.paymentsystem.services.GamesService;
+import ru.karyeragame.paymentsystem.game.dto.GameCreateDto;
+import ru.karyeragame.paymentsystem.game.dto.GameOutputDto;
+import ru.karyeragame.paymentsystem.game.services.GamesService;
 
 import java.time.LocalDateTime;
 
-@RestController
+@Controller
 @RequestMapping("/games")
 @Slf4j
 public class GamesAdminController {

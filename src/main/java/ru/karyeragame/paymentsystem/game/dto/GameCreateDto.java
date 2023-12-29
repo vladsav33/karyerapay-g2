@@ -1,4 +1,4 @@
-package ru.karyeragame.paymentsystem.dto;
+package ru.karyeragame.paymentsystem.game.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;

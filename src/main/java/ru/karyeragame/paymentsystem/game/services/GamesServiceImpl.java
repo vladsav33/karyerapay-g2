@@ -1,14 +1,14 @@
-package ru.karyeragame.paymentsystem.services;
+package ru.karyeragame.paymentsystem.game.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.karyeragame.paymentsystem.dto.GameCreateDto;
-import ru.karyeragame.paymentsystem.dto.GameOutputDto;
-import ru.karyeragame.paymentsystem.entities.Game;
-import ru.karyeragame.paymentsystem.mappers.GameMapper;
-import ru.karyeragame.paymentsystem.mock.User;
-import ru.karyeragame.paymentsystem.mock.UserService;
-import ru.karyeragame.paymentsystem.repositories.GamesRepository;
+import ru.karyeragame.paymentsystem.game.dto.GameCreateDto;
+import ru.karyeragame.paymentsystem.game.dto.GameOutputDto;
+import ru.karyeragame.paymentsystem.game.entities.Game;
+import ru.karyeragame.paymentsystem.game.mappers.GameMapper;
+import ru.karyeragame.paymentsystem.user.User;
+import ru.karyeragame.paymentsystem.user.service.UserService;
+import ru.karyeragame.paymentsystem.game.repositories.GamesRepository;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package ru.karyeragame.paymentsystem.dto;
+package ru.karyeragame.paymentsystem.game.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
