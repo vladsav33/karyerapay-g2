@@ -6,7 +6,7 @@ import ru.karyeragame.paymentsystem.game.dto.GameCreateDto;
 import ru.karyeragame.paymentsystem.game.dto.GameOutputDto;
 import ru.karyeragame.paymentsystem.game.entities.Game;
 import ru.karyeragame.paymentsystem.game.mappers.GameMapper;
-import ru.karyeragame.paymentsystem.user.User;
+import ru.karyeragame.paymentsystem.user.model.User;
 import ru.karyeragame.paymentsystem.user.service.UserService;
 import ru.karyeragame.paymentsystem.game.repositories.GamesRepository;
 

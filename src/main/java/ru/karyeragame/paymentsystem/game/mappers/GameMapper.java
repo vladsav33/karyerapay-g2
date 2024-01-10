@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import ru.karyeragame.paymentsystem.game.dto.GameCreateDto;
 import ru.karyeragame.paymentsystem.game.dto.GameOutputDto;
 import ru.karyeragame.paymentsystem.game.entities.Game;
-import ru.karyeragame.paymentsystem.user.User;
+import ru.karyeragame.paymentsystem.user.model.User;
 
 @Component
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)

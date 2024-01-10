@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import ru.karyeragame.paymentsystem.common.exception.ObjectNotFoundException;
 import ru.karyeragame.paymentsystem.user.Role;
-import ru.karyeragame.paymentsystem.user.User;
+import ru.karyeragame.paymentsystem.user.model.User;
 import ru.karyeragame.paymentsystem.user.dto.UserFullDto;
 import ru.karyeragame.paymentsystem.user.mapper.UserMapper;
 

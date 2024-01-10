@@ -1,7 +1,7 @@
 package ru.karyeragame.paymentsystem.user.mapper;
 
 import lombok.experimental.UtilityClass;
-import ru.karyeragame.paymentsystem.user.User;
+import ru.karyeragame.paymentsystem.user.model.User;
 import ru.karyeragame.paymentsystem.user.dto.UserFullDto;
 
 @UtilityClass

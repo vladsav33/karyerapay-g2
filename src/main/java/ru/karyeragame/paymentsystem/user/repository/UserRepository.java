@@ -1,6 +1,6 @@
 package ru.karyeragame.paymentsystem.user.repository;
 
-import ru.karyeragame.paymentsystem.user.User;
+import ru.karyeragame.paymentsystem.user.model.User;
 import ru.karyeragame.paymentsystem.user.dto.UserFullDto;
 
 import java.util.List;

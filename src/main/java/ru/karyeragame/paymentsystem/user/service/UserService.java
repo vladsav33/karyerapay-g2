@@ -1,7 +1,7 @@
 package ru.karyeragame.paymentsystem.user.service;
 
 import org.springframework.stereotype.Service;
-import ru.karyeragame.paymentsystem.user.User;
+import ru.karyeragame.paymentsystem.user.model.User;
 import ru.karyeragame.paymentsystem.user.repository.UserRepository;
 
 @Service
