@@ -2,6 +2,7 @@ package ru.karyeragame.paymentsystem.exceptions;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -37,7 +38,7 @@ public class ErrorHandler {
         return Map.of("error", exception.getMessage());
     }
 
-    @ExceptionHandler({IncorrectData.class})
+    @ExceptionHandler({IncorrectData.class, DataIntegrityViolationException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public Map<String, String> handleConflictException(Throwable exception) {
         log.warn(exception.getMessage(), exception);

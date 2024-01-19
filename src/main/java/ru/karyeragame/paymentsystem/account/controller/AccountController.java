@@ -42,7 +42,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/{accountId}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAccount(@PathVariable @Positive Long accountId) {
         accountService.deleteAccount(accountId);
     }
