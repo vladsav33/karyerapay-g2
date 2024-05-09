@@ -11,6 +11,7 @@ import ru.karyeragame.paymentsystem.payment.mapper.PaymentMapper;
 import ru.karyeragame.paymentsystem.payment.model.Payment;
 import ru.karyeragame.paymentsystem.payment.repository.PaymentRepository;
 import ru.karyeragame.paymentsystem.user.dto.UserFullDto;
+import ru.karyeragame.paymentsystem.user.model.User;
 import ru.karyeragame.paymentsystem.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
@@ -42,7 +43,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         Account accountTo = accountRepository.getById(paymentDto.getToAccount());
-        UserFullDto userTo = userRepository.getById(accountTo.getUserId());
+        User userTo = userRepository.getById(accountTo.getUserId());
 
         /* todo реализовать проверку пользователя на блокировку */
 

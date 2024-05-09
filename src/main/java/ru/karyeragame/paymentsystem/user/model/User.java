@@ -1,4 +1,4 @@
-package ru.karyeragame.paymentsystem.user;
+package ru.karyeragame.paymentsystem.user.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,6 +21,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.karyeragame.paymentsystem.common.validation.Create;
 import ru.karyeragame.paymentsystem.common.validation.Update;
+import ru.karyeragame.paymentsystem.user.Role;
 
 import java.util.Collection;
 import java.util.List;
@@ -34,6 +36,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     @NotBlank(groups = Create.class, message = "Никнейм пользователя не может быть пустым")

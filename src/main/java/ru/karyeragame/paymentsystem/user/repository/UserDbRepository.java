@@ -8,7 +8,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import ru.karyeragame.paymentsystem.common.exception.ObjectNotFoundException;
 import ru.karyeragame.paymentsystem.user.Role;
+import ru.karyeragame.paymentsystem.user.model.User;
 import ru.karyeragame.paymentsystem.user.dto.UserFullDto;
+import ru.karyeragame.paymentsystem.user.mapper.UserMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,18 +43,18 @@ public class UserDbRepository implements UserRepository {
          */
 
         Long id = jdbcInsert.executeAndReturnKey(userTable).longValue();
-        return getById(id);
+        return UserMapper.toUserFullDto(getById(id));
     }
 
     @Override
     public UserFullDto update(Long id, UserFullDto userFullDto) {
         jdbcTemplate.update(UserRequests.UPDATE, userFullDto.getNickname(), userFullDto.getEmail(),
                 userFullDto.getPassword(), id);
-        return getById(id);
+        return UserMapper.toUserFullDto(getById(id));
     }
 
     @Override
-    public UserFullDto getById(Long id) {
+    public User getById(Long id) {
         try {
             return jdbcTemplate.queryForObject(UserRequests.GET_BY_ID, this::userMapping, id);
         } catch (DataAccessException exception) {
@@ -64,7 +66,7 @@ public class UserDbRepository implements UserRepository {
     @Override
     public UserFullDto getByEmail(String email) {
         try {
-            return jdbcTemplate.queryForObject(UserRequests.GET_BY_EMAIL, this::userMapping, email);
+            return jdbcTemplate.queryForObject(UserRequests.GET_BY_EMAIL, this::userFullDtoMapping, email);
         } catch (DataAccessException exception) {
             log.error("Пользователь с EMAIL {} не найден", email);
             throw new ObjectNotFoundException(String.format("Пользователь с EMAIL %s", email), 404L);
@@ -73,7 +75,7 @@ public class UserDbRepository implements UserRepository {
 
     @Override
     public List<UserFullDto> getAll() {
-        return jdbcTemplate.query(UserRequests.GET_ALL, this::userMapping);
+        return jdbcTemplate.query(UserRequests.GET_ALL, this::userFullDtoMapping);
     }
 
     @Override
@@ -85,8 +87,16 @@ public class UserDbRepository implements UserRepository {
         jdbcTemplate.update(UserRequests.DELETE, id);
     }
 
-    private UserFullDto userMapping(ResultSet resultSet, int rowNumber) throws SQLException {
+    private UserFullDto userFullDtoMapping(ResultSet resultSet, int rowNumber) throws SQLException {
         return new UserFullDto(resultSet.getLong("user_id"),
+                resultSet.getString("nickname"),
+                resultSet.getString("email"),
+                resultSet.getString("password"),
+                Role.valueOf(resultSet.getString("role")));
+    }
+
+    private User userMapping(ResultSet resultSet, int rowNumber) throws SQLException {
+        return new User(resultSet.getLong("user_id"),
                 resultSet.getString("nickname"),
                 resultSet.getString("email"),
                 resultSet.getString("password"),
