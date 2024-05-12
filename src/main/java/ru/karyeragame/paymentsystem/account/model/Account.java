@@ -3,7 +3,7 @@ package ru.karyeragame.paymentsystem.account.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import ru.karyeragame.paymentsystem.account.Type;
+import ru.karyeragame.paymentsystem.account.TypeOfAccount;
 
 import java.math.BigDecimal;
 
@@ -21,7 +21,7 @@ public class Account {
 
     @Enumerated(EnumType.STRING)
     @NotBlank(message = "Поле type не может быть пустым")
-    private Type type;
+    private TypeOfAccount typeOfAccount;
 
     @NotBlank(message = "Поле name не может быть пустым")
     @Size(min = 2, max = 100, message = "Размер поля name, мин 2, мах 100")

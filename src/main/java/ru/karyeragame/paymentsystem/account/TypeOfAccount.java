@@ -1,6 +1,7 @@
 package ru.karyeragame.paymentsystem.account;
 
-public enum Type {
+public enum TypeOfAccount {
+    ADMIN, // Административный счёт
     PERSONAL, // Личный счёт
     CHAIRMAN_OF_GOVERNMENT, // Председатель Правительства
     TAX_INSPECTOR, // Налоговый инспектор

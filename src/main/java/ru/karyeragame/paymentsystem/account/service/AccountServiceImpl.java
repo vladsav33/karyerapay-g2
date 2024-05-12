@@ -25,7 +25,7 @@ public class AccountServiceImpl implements AccountService {
     public AccountDto createAccount(AccountDto accountDto) {
         /*todo mapping, возможно создание счёта привязать к созданию игры */
         Account account = Account.builder()
-                .type(accountDto.getType())
+                .typeOfAccount(accountDto.getTypeOfAccount())
                 /*todo реализовать логику присвоения названия счёта в зависимости от имени пользователя и типа счёта*/
                 .name(accountDto.getName())
                 .userId(accountDto.getUserId())
