@@ -4,7 +4,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import ru.karyeragame.paymentsystem.account.Type;
+import ru.karyeragame.paymentsystem.account.TypeOfAccount;
 
 import java.math.BigDecimal;
 
@@ -18,7 +18,7 @@ public class AccountDto {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private TypeOfAccount typeOfAccount;
 
     @NotBlank(message = "Поле name не может быть пустым")
     @Size(min = 2, max = 100, message = "Размер поля name, мин 2, мах 100")

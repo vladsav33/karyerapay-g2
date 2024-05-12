@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.karyeragame.paymentsystem.account.Type;
+import ru.karyeragame.paymentsystem.account.TypeOfAccount;
 import ru.karyeragame.paymentsystem.account.dto.AccountDto;
 import ru.karyeragame.paymentsystem.account.model.Account;
 import ru.karyeragame.paymentsystem.common.exception.ObjectNotFoundException;
@@ -61,7 +61,7 @@ public class AccountDbRepository implements AccountRepository {
                 .usingGeneratedKeyColumns("account_id");
 
         Map<String, Object> accountTable = new HashMap<>();
-        accountTable.put("type", account.getType());
+        accountTable.put("type", account.getTypeOfAccount());
         accountTable.put("name", account.getName());
         accountTable.put("user_id", account.getUserId());
         accountTable.put("amount", account.getAmount());
@@ -96,7 +96,7 @@ public class AccountDbRepository implements AccountRepository {
 
     private Account accountMapping(ResultSet resultSet, int rowNumber) throws SQLException {
         return new Account(resultSet.getLong("account_id"),
-                Type.valueOf(resultSet.getString("type")),
+                TypeOfAccount.valueOf(resultSet.getString("type")),
                 resultSet.getString("name"),
                 resultSet.getLong("user_id"),
                 resultSet.getBigDecimal("amount"));
@@ -104,7 +104,7 @@ public class AccountDbRepository implements AccountRepository {
 
     private AccountDto accountDtoMapping(ResultSet resultSet, int rowNumber) throws SQLException {
         return new AccountDto(resultSet.getLong("account_id"),
-                Type.valueOf(resultSet.getString("type")),
+                TypeOfAccount.valueOf(resultSet.getString("type")),
                 resultSet.getString("name"),
                 resultSet.getLong("user_id"),
                 resultSet.getBigDecimal("amount"));
