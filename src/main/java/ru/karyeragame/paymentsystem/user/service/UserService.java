@@ -1,18 +1,19 @@
 package ru.karyeragame.paymentsystem.user.service;
 
-import org.springframework.stereotype.Service;
+import ru.karyeragame.paymentsystem.user.dto.UserFullDto;
 import ru.karyeragame.paymentsystem.user.model.User;
-import ru.karyeragame.paymentsystem.user.repository.UserRepository;
 
-@Service
-public class UserService {
-    private final UserRepository userRepository;
+import java.util.List;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+public interface UserService {
 
-    public User findById(long id) {
-        return userRepository.getById(id);
-    }
+    User findById(long id);
+
+    UserFullDto getByEmail(String email);
+
+    List<UserFullDto> getAll();
+
+    UserFullDto update(Long id, UserFullDto userFullDto);
+
+    void delete(Long id);
 }

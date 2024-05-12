@@ -23,7 +23,8 @@ public class ErrorHandler {
         return Map.of("error", "Письмо не может быть отправлено");
     }
 
-    @ExceptionHandler({NotFoundException.class})
+    @ExceptionHandler({NotFoundException.class,
+            ru.karyeragame.paymentsystem.common.exception.ObjectNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> handleNotFoundException(Throwable exception) {
         log.warn(exception.getMessage(), exception);
