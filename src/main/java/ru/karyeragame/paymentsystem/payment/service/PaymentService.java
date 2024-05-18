@@ -5,7 +5,7 @@ import ru.karyeragame.paymentsystem.payment.dto.PaymentDto;
 import java.util.List;
 
 public interface PaymentService {
-    String payment(PaymentDto paymentDto, String requesterEmail);
+    String payment(PaymentDto paymentDto, Long userFromId);
 
     List<PaymentDto> getAll();
 

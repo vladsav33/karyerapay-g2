@@ -10,7 +10,6 @@ import ru.karyeragame.paymentsystem.payment.dto.PaymentDto;
 import ru.karyeragame.paymentsystem.payment.mapper.PaymentMapper;
 import ru.karyeragame.paymentsystem.payment.model.Payment;
 import ru.karyeragame.paymentsystem.payment.repository.PaymentRepository;
-import ru.karyeragame.paymentsystem.user.dto.UserFullDto;
 import ru.karyeragame.paymentsystem.user.model.User;
 import ru.karyeragame.paymentsystem.user.repository.UserRepository;
 
@@ -27,12 +26,16 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional
-    public String payment(PaymentDto paymentDto, String requesterEmail) {
+    public String payment(PaymentDto paymentDto, Long userFromId) {
         if (paymentDto.getFromAccount().equals(paymentDto.getToAccount())) {
             throw new IncorrectData("Указан одинаковый счёт списания и получения.");
         }
-        UserFullDto userFrom = userRepository.getByEmail(requesterEmail);
+        User userFrom = userRepository.getById(userFromId);
         Account accountFrom = accountRepository.getById(userFrom.getId());
+
+        if (accountFrom.getIsLocked()) {
+            throw new IncorrectData("Ваш счет заблокирован");
+        }
 
         if (!accountFrom.getId().equals(paymentDto.getFromAccount())) {
             throw new IncorrectData("Что-то пошло не так. Счёт списания не принадлежит пользователю.");
@@ -43,6 +46,10 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         Account accountTo = accountRepository.getById(paymentDto.getToAccount());
+        if (accountTo.getIsLocked()) {
+            throw new IncorrectData("Счет получателя заблокирован");
+        }
+
         User userTo = userRepository.getById(accountTo.getUserId());
 
         /* todo реализовать проверку пользователя на блокировку */
@@ -55,14 +62,19 @@ public class PaymentServiceImpl implements PaymentService {
         if (!gameIdUserFrom.equals(gameIdUserTo)) {
             throw new IncorrectData("Что-то пошло не так. Получатель в другой Игре.");
         }
+        todo и жива ли игра,  подставить ниже в payment gameId
         */
 
         accountRepository.transfer(accountFrom.getId(), accountTo.getId(), paymentDto.getAmount());
 
         Payment payment = Payment.builder()
+//
+                .gameId(1L)
+//
                 .fromAccount(accountFrom.getId())
                 .toAccount(accountTo.getId())
                 .amount(paymentDto.getAmount())
+                .description(paymentDto.getDescription())
                 .created(LocalDateTime.now())
                 .build();
         paymentRepository.create(payment);

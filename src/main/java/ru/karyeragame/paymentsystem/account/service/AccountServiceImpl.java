@@ -6,6 +6,9 @@ import ru.karyeragame.paymentsystem.account.dto.AccountDto;
 import ru.karyeragame.paymentsystem.account.mapper.AccountMapper;
 import ru.karyeragame.paymentsystem.account.model.Account;
 import ru.karyeragame.paymentsystem.account.repository.AccountRepository;
+import ru.karyeragame.paymentsystem.game.services.GamesService;
+import ru.karyeragame.paymentsystem.user.model.User;
+import ru.karyeragame.paymentsystem.user.service.UserService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -16,6 +19,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
+    private final UserService userService;
+    private final GamesService gamesService;
 
     /*todo исправить назначение стартового капитала после реализации создании игры*/
 
@@ -24,12 +29,24 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDto createAccount(AccountDto accountDto) {
         /*todo mapping, возможно создание счёта привязать к созданию игры */
+        User user = userService.findById(accountDto.getUserId());
+        gamesService.getGame(accountDto.getGameId());
+
+        String name =
+                switch (accountDto.getTypeOfAccount()) {
+                    case PERSONAL -> user.getNickname();
+                    case ADMIN -> accountDto.getTypeOfAccount().toString().toUpperCase();
+                    default -> accountDto.getTypeOfAccount().toString().toUpperCase() + " - " + user.getNickname();
+                };
+
+
         Account account = Account.builder()
+                .gameId(accountDto.getGameId())
                 .typeOfAccount(accountDto.getTypeOfAccount())
-                /*todo реализовать логику присвоения названия счёта в зависимости от имени пользователя и типа счёта*/
-                .name(accountDto.getName())
+                .name(name)
                 .userId(accountDto.getUserId())
                 .amount(new BigDecimal(START_CAPITAL).setScale(2, RoundingMode.HALF_UP))
+                .isLocked(false)
                 .build();
         account = accountRepository.create(account);
 
