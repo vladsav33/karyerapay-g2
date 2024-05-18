@@ -13,7 +13,7 @@ public class AccountRequests {
             "FROM accounts " +
             "WHERE account_id = ?";
 
-    static final String GET_BY_EMAIL = "SELECT a.account_id, a.type, a.name, a.user_id, a.amount " +
+    static final String GET_BY_EMAIL = "SELECT a.account_id, a.game_id, a.type_Of_Account, a.name, a.user_id, a.amount, a.is_Locked " +
             "FROM accounts a " +
             "INNER JOIN users u ON a.user_id = u.user_id " +
             "WHERE u.email = ?";
