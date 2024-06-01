@@ -18,7 +18,7 @@ public class StartAmountMapper {
                 .build();
     }
 
-    public StartAmountDto startAmountDto(StartAmount startAmount) {
+    public StartAmountDto toStartAmountDto(StartAmount startAmount) {
         return StartAmountDto.builder()
                 .gameId(startAmount.getGameId())
                 .typeOfAccount(startAmount.getTypeOfAccount())
@@ -34,7 +34,7 @@ public class StartAmountMapper {
 
     public List<StartAmountDto> toStartAmountDtoList(List<StartAmount> startAmountList) {
         return startAmountList.stream()
-                .map(StartAmountMapper::startAmountDto)
+                .map(StartAmountMapper::toStartAmountDto)
                 .collect(Collectors.toList());
     }
 }

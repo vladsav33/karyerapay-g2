@@ -29,9 +29,11 @@ public class PaymentDbRepository implements PaymentRepository {
                 .usingGeneratedKeyColumns("payments_id");
 
         Map<String, Object> paymentTable = new HashMap<>();
+        paymentTable.put("game_id", payment.getGameId());
         paymentTable.put("account_id_from", payment.getFromAccount());
         paymentTable.put("account_id_to", payment.getToAccount());
         paymentTable.put("amount", payment.getAmount());
+        paymentTable.put("description", payment.getDescription());
         paymentTable.put("created_on", payment.getCreated());
 
         Long id = jdbcInsert.executeAndReturnKey(paymentTable).longValue();
@@ -70,9 +72,11 @@ public class PaymentDbRepository implements PaymentRepository {
 
     private Payment paymentMapping(ResultSet resultSet, int rowNumber) throws SQLException {
         return new Payment(resultSet.getLong("payments_id"),
+                resultSet.getLong("game_id"),
                 resultSet.getLong("account_id_from"),
                 resultSet.getLong("account_id_to"),
                 resultSet.getBigDecimal("amount"),
+                resultSet.getString("description"),
                 resultSet.getTimestamp("created_on").toLocalDateTime());
     }
 }

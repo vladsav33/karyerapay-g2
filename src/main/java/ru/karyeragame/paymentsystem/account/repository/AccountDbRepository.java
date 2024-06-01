@@ -61,10 +61,12 @@ public class AccountDbRepository implements AccountRepository {
                 .usingGeneratedKeyColumns("account_id");
 
         Map<String, Object> accountTable = new HashMap<>();
-        accountTable.put("type", account.getTypeOfAccount());
+        accountTable.put("game_id", account.getGameId());
+        accountTable.put("type_Of_Account", account.getTypeOfAccount());
         accountTable.put("name", account.getName());
         accountTable.put("user_id", account.getUserId());
         accountTable.put("amount", account.getAmount());
+        accountTable.put("is_Locked", account.getIsLocked());
 
         Long id = jdbcInsert.executeAndReturnKey(accountTable).longValue();
         return getById(id);
@@ -96,18 +98,21 @@ public class AccountDbRepository implements AccountRepository {
 
     private Account accountMapping(ResultSet resultSet, int rowNumber) throws SQLException {
         return new Account(resultSet.getLong("account_id"),
-                TypeOfAccount.valueOf(resultSet.getString("type")),
+                resultSet.getLong("game_id"),
+                TypeOfAccount.valueOf(resultSet.getString("type_Of_Account")),
                 resultSet.getString("name"),
                 resultSet.getLong("user_id"),
-                resultSet.getBigDecimal("amount"));
+                resultSet.getBigDecimal("amount"),
+                resultSet.getBoolean("is_Locked"));
     }
 
     private AccountDto accountDtoMapping(ResultSet resultSet, int rowNumber) throws SQLException {
         return new AccountDto(resultSet.getLong("account_id"),
-                TypeOfAccount.valueOf(resultSet.getString("type")),
+                resultSet.getLong("game_id"),
+                TypeOfAccount.valueOf(resultSet.getString("type_Of_Account")),
                 resultSet.getString("name"),
                 resultSet.getLong("user_id"),
-                resultSet.getBigDecimal("amount"));
+                resultSet.getBigDecimal("amount"),
+                resultSet.getBoolean("is_Locked"));
     }
-
 }

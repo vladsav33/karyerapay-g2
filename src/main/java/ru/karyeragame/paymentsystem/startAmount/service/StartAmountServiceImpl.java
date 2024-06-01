@@ -36,6 +36,6 @@ public class StartAmountServiceImpl implements StartAmountService {
 
     @Override
     public StartAmountDto getStartAmountTypeOfAccount(Long gameId, TypeOfAccount type) {
-        return StartAmountMapper.startAmountDto(startAmountRepository.findByGameIdAndTypeOfAccount(gameId, type));
+        return StartAmountMapper.toStartAmountDto(startAmountRepository.findByGameIdAndTypeOfAccount(gameId, type));
     }
 }
