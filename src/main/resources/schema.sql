@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS accounts
     amount          NUMERIC(14, 2)                          NOT NULL,
     is_Locked       BOOLEAN                                 NOT NULL,
     CONSTRAINT pk_accounts PRIMARY KEY (account_id),
-    CONSTRAINT fk_accounts_game_id FOREIGN KEY (game_id) REFERENCES games (game_id),
+    CONSTRAINT fk_accounts_game_id FOREIGN KEY (game_id) REFERENCES games (game_id) ON DELETE CASCADE,
     CONSTRAINT fk_account_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
     CONSTRAINT uq_account UNIQUE (user_id, type_Of_Account),
     CONSTRAINT accounts_amount CHECK ( amount >= 0 )
@@ -65,11 +65,12 @@ CREATE TABLE IF NOT EXISTS payments
 );
 CREATE TABLE IF NOT EXISTS created_games
 (
-    game_id BIGINT NOT NULL,
-    user_id BIGINT NOT NULL,
-    CONSTRAINT fk_game_id FOREIGN KEY (game_id) REFERENCES games (game_id),
-    CONSTRAINT fk_created_games_user_id FOREIGN KEY (user_id) REFERENCES users (user_id),
-    CONSTRAINT uq_user_id UNIQUE (user_id)
+    game_id         BIGINT  NOT NULL,
+    user_id         BIGINT  NOT NULL,
+    type_Of_Account VARCHAR NOT NULL,
+    CONSTRAINT pk_created_games PRIMARY KEY (game_id, user_id, type_Of_Account),
+    CONSTRAINT fk_created_games_game_id FOREIGN KEY (game_id) REFERENCES games (game_id),
+    CONSTRAINT fk_created_games_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 CREATE TABLE IF NOT EXISTS start_amounts
 (

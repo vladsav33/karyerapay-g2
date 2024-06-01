@@ -1165,41 +1165,25 @@
 			]
 		},
 		{
-			"name": "Accounts",
+			"name": "Start amount",
 			"item": [
 				{
-					"name": "add Account User 1",
+					"name": "add startAmount",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"    pm.response.to.be.withBody;\r",
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"const source = JSON.parse(pm.request.body.raw);\r",
 									"const target = pm.response.json();\r",
 									"\r",
-									"pm.test(\"Ответ должен содержать поля: id, typeOfAccount, name, userId, amount, isLocked\", function () {\r",
-									"pm.expect(target).to.have.property('id');\r",
-									"pm.expect(target).to.have.property('typeOfAccount');\r",
-									"pm.expect(target).to.have.property('name');\r",
-									"pm.expect(target).to.have.property('userId');\r",
-									"pm.expect(target).to.have.property('amount');\r",
-									"pm.expect(target).to.have.property('isLocked');\r",
-									"});\r",
-									"\r",
 									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
-									"    pm.expect(target.id).to.not.be.null;\r",
-									"    pm.expect('User_1').equal(target.name, 'Имя пользователя должно соответствовать');\r",
-									"    pm.expect(source.userId).equal(target.userId, 'userId должен соответствовать отправленному в запросе');\r",
-									"    pm.expect(source.typeOfAccount).equal(target.typeOfAccount, 'Тип счёта должен соответствовать отправленному в запросе');\r",
-									"    pm.expect(1000).equal(target.amount, 'Сумма должна соответствовать запросу');\r",
-									"    pm.expect(false).equal(target.isLocked, 'должен false');\r",
-									"    \r",
+									"pm.expect(target.length, 'Ответ должен содержать 19 позиций').to.eql(19);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1222,7 +1206,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"gameId\": 1,\r\n    \"typeOfAccount\": \"PERSONAL\",\r\n\t\"userId\" : 1\r\n}",
+							"raw": "[\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"ADMIN\",\r\n    \"startAmount\" : 999999999\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"PERSONAL\",\r\n    \"startAmount\" : 1000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"CHAIRMAN_OF_GOVERNMENT\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"TAX_INSPECTOR\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"POLICE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"INSTITUTE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"TREATMENT_HOUSEHOLD_SERVICE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"LICENSING_INSPECTOR\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"LABOR_INSPECTOR\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"LABOR_EXCHANGE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"MINISTER_OF_FOREIGN_TRADE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"CENTRAL_BANK\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"FARM\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"MINING\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"MACHINERY_PLANT\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"COTTON_MILL\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"MALL\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"MINISTRY_OF_FOREIGN_TRADE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"BANK\",\r\n    \"startAmount\" : 500000\r\n    }\r\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1230,52 +1214,36 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/accounts",
+							"raw": "http://localhost:8081/startAmount",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"accounts"
+								"startAmount"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "add Account User 1 CHAIRMAN_OF_GOVERNMENT",
+					"name": "get StartAmounts by GameId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
 									"    pm.response.to.be.withBody;\r",
 									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
-									"const source = JSON.parse(pm.request.body.raw);\r",
 									"const target = pm.response.json();\r",
 									"\r",
-									"pm.test(\"Ответ должен содержать поля: id, typeOfAccount, name, userId, amount, isLocked\", function () {\r",
-									"pm.expect(target).to.have.property('id');\r",
-									"pm.expect(target).to.have.property('typeOfAccount');\r",
-									"pm.expect(target).to.have.property('name');\r",
-									"pm.expect(target).to.have.property('userId');\r",
-									"pm.expect(target).to.have.property('amount');\r",
-									"pm.expect(target).to.have.property('isLocked');\r",
-									"});\r",
-									"\r",
 									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
-									"    pm.expect(target.id).to.not.be.null;\r",
-									"    pm.expect(\"CHAIRMAN_OF_GOVERNMENT - User_1\").equal(target.name, 'Имя пользователя должно соответствовать');\r",
-									"    pm.expect(source.userId).equal(target.userId, 'userId должен соответствовать отправленному в запросе');\r",
-									"    pm.expect(source.typeOfAccount).equal(target.typeOfAccount, 'Тип счёта должен соответствовать отправленному в запросе');\r",
-									"    pm.expect(1000).equal(target.amount, 'Сумма должна соответствовать запросу');\r",
-									"    pm.expect(false).equal(target.isLocked, 'должен false');\r",
-									"    \r",
+									"pm.expect(target.length, 'Ответ должен содержать 19 позиций').to.eql(19);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1294,40 +1262,94 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\t\"gameId\": 1,\r\n    \"typeOfAccount\": \"CHAIRMAN_OF_GOVERNMENT\",\r\n\t\"userId\" : 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8081/accounts",
+							"raw": "http://localhost:8081/startAmount/id/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"accounts"
+								"startAmount",
+								"id",
+								"1"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "add Account User 2",
+					"name": "get StartAmount by GameId and TypeOfAccount",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"pm.expect(target.typeOfAccount, 'Тип счёта должен соответствовать').to.eql('BANK');\r",
+									"pm.expect(target.startAmount, 'Сумма счёта должен соответствовать').to.eql(500000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUser1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/startAmount/id/1/type/BANK",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"startAmount",
+								"id",
+								"1",
+								"type",
+								"BANK"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreatedGame",
+			"item": [
+				{
+					"name": "add User 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
 									"    pm.response.to.be.withBody;\r",
 									"    pm.response.to.be.json;\r",
 									"});\r",
@@ -1335,22 +1357,166 @@
 									"const source = JSON.parse(pm.request.body.raw);\r",
 									"const target = pm.response.json();\r",
 									"\r",
-									"pm.test(\"Ответ должен содержать поля: id, typeOfAccount, name, userId, amount, isLocked\", function () {\r",
-									"pm.expect(target).to.have.property('id');\r",
-									"pm.expect(target).to.have.property('typeOfAccount');\r",
-									"pm.expect(target).to.have.property('name');\r",
-									"pm.expect(target).to.have.property('userId');\r",
-									"pm.expect(target).to.have.property('amount');\r",
-									"pm.expect(target).to.have.property('isLocked');\r",
+									"pm.test(\"Ответ должен содержать поле: token\", function () {\r",
+									"pm.expect(target).to.have.property('token');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nickname\": \"User_4\",\r\n\t\"email\": \"User_4@test.test\",\r\n\t\"password\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/karyera-game/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"karyera-game",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add User 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
 									"});\r",
 									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Ответ должен содержать поле: token\", function () {\r",
+									"pm.expect(target).to.have.property('token');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nickname\": \"User_5\",\r\n\t\"email\": \"User_5@test.test\",\r\n\t\"password\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/karyera-game/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"karyera-game",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add User 6",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Ответ должен содержать поле: token\", function () {\r",
+									"pm.expect(target).to.have.property('token');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nickname\": \"User_6\",\r\n\t\"email\": \"User_6@test.test\",\r\n\t\"password\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/karyera-game/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"karyera-game",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add CreatedGame",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
 									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
-									"    pm.expect(target.id).to.not.be.null;\r",
-									"    pm.expect('User_2').equal(target.name, 'Имя пользователя должно соответствовать');\r",
-									"    pm.expect(source.userId).equal(target.userId, 'userId должен соответствовать отправленному в запросе');\r",
-									"    pm.expect(source.typeOfAccount).equal(target.typeOfAccount, 'Тип счёта должен соответствовать отправленному в запросе');\r",
-									"    pm.expect(1000).equal(target.amount, 'Сумма должна соответствовать запросу');\r",
-									"    pm.expect(false).equal(target.isLocked, 'должен false');\r",
+									"pm.expect(target.length, 'Ответ должен содержать 3 позиции').to.eql(3);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1373,7 +1539,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"gameId\": 1,\r\n    \"typeOfAccount\": \"PERSONAL\",\r\n\t\"userId\" : 2\r\n}",
+							"raw": "[\r\n    {\r\n\t\"gameId\": 1,\r\n    \"userId\": 1,\r\n\t\"typeOfAccount\" : \"CHAIRMAN_OF_GOVERNMENT\"\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n    \"userId\": 2,\r\n\t\"typeOfAccount\" : \"PERSONAL\"\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n    \"userId\": 4,\r\n\t\"typeOfAccount\" : \"BANK\"\r\n    }\r\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1381,19 +1547,312 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/accounts",
+							"raw": "http://localhost:8081/createdGames/add",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"accounts"
+								"createdGames",
+								"add"
 							]
 						}
 					},
 					"response": []
 				},
+				{
+					"name": "add CreatedGame Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"pm.expect(target.length, 'Ответ должен содержать 3 позиции').to.eql(3);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUser1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n\t\"gameId\": 1,\r\n    \"userId\": 1,\r\n\t\"typeOfAccount\" : \"CHAIRMAN_OF_GOVERNMENT\"\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n    \"userId\": 2,\r\n\t\"typeOfAccount\" : \"PERSONAL\"\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n    \"userId\": 3,\r\n\t\"typeOfAccount\" : \"POLICE\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/createdGames/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"createdGames",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add CreatedGame Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"pm.expect(target.length, 'Ответ должен содержать 3 позиции').to.eql(3);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUser1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n\t\"gameId\": 1,\r\n    \"userId\": 1,\r\n\t\"typeOfAccount\" : \"CHAIRMAN_OF_GOVERNMENT\"\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n    \"userId\": 2,\r\n\t\"typeOfAccount\" : \"ADMIN\"\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n    \"userId\": 5,\r\n\t\"typeOfAccount\" : \"MINING\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/createdGames/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"createdGames",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get CreatedGame by GameId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"pm.expect(target.length, 'Ответ должен содержать 4 позиции').to.eql(4);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUser1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/createdGames/gameId/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"createdGames",
+								"gameId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get CreatedGame by UserId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"pm.expect(target.gameId, 'gameId  должен соответствовать').to.eql(1);\r",
+									"pm.expect(target.userId, 'userId  должен соответствовать').to.eql(1);\r",
+									"pm.expect(target.typeOfAccount, 'Тип счёта должен соответствовать').to.eql('CHAIRMAN_OF_GOVERNMENT');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUser1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/createdGames/userId/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"createdGames",
+								"userId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get CreatedGame by GameId & TypeOfAccount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"pm.expect(target.gameId, 'gameId  должен соответствовать').to.eql(1);\r",
+									"pm.expect(target.userId, 'userId  должен соответствовать').to.eql(4);\r",
+									"pm.expect(target.typeOfAccount, 'Тип счёта должен соответствовать').to.eql('BANK');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUser1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/createdGames/gameId/1/type/\tBANK",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"createdGames",
+								"gameId",
+								"1",
+								"type",
+								"\tBANK"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"item": [
 				{
 					"name": "get Account id1",
 					"event": [
@@ -1591,19 +2050,23 @@
 									"const target = pm.response.json();\r",
 									"\r",
 									"pm.test(\"Данные в ответе должны соответствовать данным\", function () {\r",
-									"pm.expect(target.length, 'Ответ должен содержать 3 счета').to.eql(3);\r",
+									"pm.expect(target.length, 'Ответ должен содержать 4 счета').to.eql(4);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Название первого счета\", function () {\r",
-									"pm.expect(target[0].name, 'Название первой счета').to.eql('User_1');\r",
+									"pm.expect(target[0].name, 'Название первого счета').to.eql('CHAIRMAN_OF_GOVERNMENT - User_1');\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Название второго счета\", function () {\r",
-									"pm.expect(target[1].name, 'Название второй счета').to.eql('CHAIRMAN_OF_GOVERNMENT - User_1');\r",
+									"pm.expect(target[1].name, 'Название второго счета').to.eql('User_2');\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Название третьего счета\", function () {\r",
-									"pm.expect(target[2].name, 'Название третьей счета').to.eql('User_2');\r",
+									"pm.expect(target[2].name, 'Название третьего счета').to.eql('BANK - User_4');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Название четвёртого счета\", function () {\r",
+									"pm.expect(target[3].name, 'Название четвёртого счета').to.eql('MINING - User_5');\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1633,180 +2096,6 @@
 							"port": "8081",
 							"path": [
 								"accounts"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Start amount",
-			"item": [
-				{
-					"name": "add startAmount",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"    pm.response.to.be.withBody;\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"const target = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
-									"pm.expect(target.length, 'Ответ должен содержать 19 позиций').to.eql(19);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenUser1}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"ADMIN\",\r\n    \"startAmount\" : 999999999\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"PERSONAL\",\r\n    \"startAmount\" : 1000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"CHAIRMAN_OF_GOVERNMENT\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"TAX_INSPECTOR\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"POLICE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"INSTITUTE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"TREATMENT_HOUSEHOLD_SERVICE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"LICENSING_INSPECTOR\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"LABOR_INSPECTOR\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"LABOR_EXCHANGE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"MINISTER_OF_FOREIGN_TRADE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"CENTRAL_BANK\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"FARM\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"MINING\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"MACHINERY_PLANT\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"COTTON_MILL\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"MALL\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"MINISTRY_OF_FOREIGN_TRADE\",\r\n    \"startAmount\" : 10000\r\n    },\r\n    {\r\n\t\"gameId\": 1,\r\n\t\"typeOfAccount\" : \"BANK\",\r\n    \"startAmount\" : 500000\r\n    }\r\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8081/startAmount",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"startAmount"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get StartAmounts by GameId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"    pm.response.to.be.withBody;\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"const target = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
-									"pm.expect(target.length, 'Ответ должен содержать 19 позиций').to.eql(19);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenUser1}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/startAmount/id/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"startAmount",
-								"id",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get StartAmount by GameId and TypeOfAccount",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"    pm.response.to.be.withBody;\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"\r",
-									"const target = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
-									"pm.expect(target.typeOfAccount, 'Тип счёта должен соответствовать').to.eql('BANK');\r",
-									"pm.expect(target.startAmount, 'Сумма счёта должен соответствовать').to.eql(500000);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenUser1}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/startAmount/id/1/type/BANK",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"startAmount",
-								"id",
-								"1",
-								"type",
-								"BANK"
 							]
 						}
 					},

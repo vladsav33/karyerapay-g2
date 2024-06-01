@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.karyeragame.paymentsystem.account.model.Account;
 import ru.karyeragame.paymentsystem.account.repository.AccountRepository;
+import ru.karyeragame.paymentsystem.createdGames.dto.CreatedGameDto;
+import ru.karyeragame.paymentsystem.createdGames.service.CreatedGameService;
 import ru.karyeragame.paymentsystem.exceptions.IncorrectData;
 import ru.karyeragame.paymentsystem.payment.dto.PaymentDto;
 import ru.karyeragame.paymentsystem.payment.mapper.PaymentMapper;
@@ -23,6 +25,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final UserRepository userRepository;
     private final PaymentRepository paymentRepository;
     private final AccountRepository accountRepository;
+    private final CreatedGameService createdGameService;
 
     @Override
     @Transactional
@@ -52,25 +55,17 @@ public class PaymentServiceImpl implements PaymentService {
 
         User userTo = userRepository.getById(accountTo.getUserId());
 
-        /* todo реализовать проверку пользователя на блокировку */
+        CreatedGameDto createdGameDtoFrom = createdGameService.getCreatedGameByUserIdWhereGameIsAlive(userFrom.getId());
+        CreatedGameDto createdGameDtoTo = createdGameService.getCreatedGameByUserIdWhereGameIsAlive(userTo.getId());
 
-        /*
-        todo реализовать проверку пользователей на принадлежность к одной игре
-        Long gameIdUserFrom = createdGamesRepository.getByUserId(userFrom.getId());
-        Long gameIdUserTo = createdGamesRepository.getByUserId(userTo.getId());
-
-        if (!gameIdUserFrom.equals(gameIdUserTo)) {
+        if (!createdGameDtoFrom.getGameId().equals(createdGameDtoTo.getGameId())) {
             throw new IncorrectData("Что-то пошло не так. Получатель в другой Игре.");
         }
-        todo и жива ли игра,  подставить ниже в payment gameId
-        */
 
         accountRepository.transfer(accountFrom.getId(), accountTo.getId(), paymentDto.getAmount());
 
         Payment payment = Payment.builder()
-//
-                .gameId(1L)
-//
+                .gameId(createdGameDtoFrom.getGameId())
                 .fromAccount(accountFrom.getId())
                 .toAccount(accountTo.getId())
                 .amount(paymentDto.getAmount())
